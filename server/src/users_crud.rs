@@ -26,3 +26,21 @@ fn get_user(db: &Connection, user_id: i64) -> Result<Option<User>> {
         Ok(None);
     }
 }
+
+fn update_user_password(db: &Connection, user_id: i64, new_password: &str) -> Result<()> {
+    db.execute(
+        "UPDATE users SET encrypted_password = ?1 WHERE id = ?2",
+        params![new_password, user_id] 
+    )?;
+
+    Ok(());
+}
+
+fn delete_user(db: &Connection, user_id: i64) -> Result<> {
+    db.execute(
+        "DELETE FROM users WHERE id = ?1",
+        params![user_id]
+    )?;
+
+    Ok(());
+}
