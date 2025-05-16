@@ -3,9 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ASU Better Class Search!</title>
+    <title>ASU Better Class Finder</title>
+    <link rel="stylesheet" href="styles.css">
+    <script type="module" src="index.js"></script>
 </head>
 <body>
-    
+    <h1>ASU Better Class Finder</h1>
+    <h3>What class do you want? (Spring 2025)</h3>
+    <form action="/search">
+        <label for="subject">Subject: </label>
+        <input type="text" id="subject" name="subject"><br>
+        <label for="number">Number: </label>
+        <input type="text" id="number" name="number"><br>
+        <input type="submit">
+    </form>
 </body>
 </html>

@@ -1,5 +1,7 @@
 const a = 1;
 
+const b = 2;
+
 let c = {
     g: "fsdioa",
     b: "jdisaof",
