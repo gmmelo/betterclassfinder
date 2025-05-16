@@ -1,0 +1,12 @@
+node_modules/
+
+public/*.js
+build/
+*.tsbuildinfo
+
+.vscode/
+.idea/
+
+.env
+
+*.log
