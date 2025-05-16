@@ -36,17 +36,25 @@ fn main() -> Result<(), Box<dyn Error>> {
         []
     )?;
 
-    // List of a user's watched classes
+    // List of classes being watched by at least one user
     db.execute(
-        "CREATE TABLE IF NOT EXISTS tracked_classes (
-            user_id INTEGER NOT NULL,
-            class_id TEXT NOT NULL,
-            FOREIGN KEY(user_id) REFERENCES users(id)
+        "CREATE TABLE IF NOT EXISTS classes (
+            id INTEGER PRIMARY KEY
         )",
         []
     )?;
 
-    
+    // List of each individual class being tracked by each user
+    db.execute(
+        "CREATE TABLE IF NOT EXISTS trackers (
+            class_id TEXT NOT NULL,
+            user_id INTEGER NOT NULL,
+            PRIMARY KEY (class_id, user_id),
+            FOREIGN KEY (class_id) REFERENCES classes(id),
+            FOREIGN KEY (user_id) REFERENCES users(id)
+        )",
+        []
+    )?;
 
     Ok(())
 }
