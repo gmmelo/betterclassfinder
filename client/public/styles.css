@@ -1,3 +1,48 @@
+:root {
+    --light-background: #feebff;
+    --light-foreground: #c484ff;
+    --light-button: #f7d0ff;
+    --light-shaded: #f1c1ff;
+    --light-mild-highlight: #6f269f;
+    --light-highlight: #802bc7;
+    --light-font-color: #2b0c35;
+    --light-black: #020001;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body, html {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+body {
+    background-color: var(--light-background);
+    color: var(--light-font-color);
+}
+
+#foreground {
+    margin: auto;
+    background-color: var(--light-foreground);
+    width: fit-content;
+    min-width: 400px;
+    min-height: 300px;
+    padding: 5rem;
+    border-radius: 40px;
+}
+
+#foreground h1, #foreground h3, #foreground p {
+    display: block;
+}
+
 .class-listing p {
     margin: 0.2em 0;
 }
