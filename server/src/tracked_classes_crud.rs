@@ -7,7 +7,7 @@ fn create_tracked_class(db: &Connection, class_id: i64) -> Result<()> {
         params![class_id]
     )?;
 
-    Ok(());
+    Ok(())
 }
 
 fn delete_tracked_class(db: &Connection, class_id: i64) -> Result<()> {
@@ -33,7 +33,7 @@ pub fn create_tracker(db: &Connection, user_id: i64, class_id: i64) -> Result<()
 }
 
 pub fn get_trackers_by_class(db: &Connection, class_id: i64) -> Result<Vec<i64>> {
-    let mut stmt = db.prepare("SELECT user_id FROM tracked WHERE class_id = ?1")?;
+    let mut stmt = db.prepare("SELECT user_id FROM trackers WHERE class_id = ?1")?;
     let users = stmt.query_map(params![class_id], |row| row.get(0))?;
     users.collect()
 }
@@ -44,13 +44,13 @@ pub fn delete_tracker(db: &Connection, user_id: i64, class_id: i64) -> Result<()
         params![class_id, user_id]
     )?;
 
-    let mut stmt = db.prepate(
+    let mut stmt = db.prepare(
         "SELECT EXISTS(SELECT : FROM trackers WHERE class_id = ?1"
     )?;
     let still_tracking_class: bool = stmt.query_row(params![class_id], |row| row.get(0))?;
 
     if !still_tracking_class {
-        delete_tracked_class()
+        delete_tracked_class(db, class_id);
     }
 
     Ok(())

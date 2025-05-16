@@ -1,7 +1,7 @@
 use rusqlite::{params, Connection, Result};
 
 #[derive(Debug)]
-struct User {
+pub struct User {
     id: i64,
     name: String,
     encrypted_password: String,
@@ -17,18 +17,18 @@ pub fn create_user(db: &Connection, usr: &str, pwd: &str) -> Result<i64> {
 }
 
 pub fn get_user(db: &Connection, user_id: i64) -> Result<Option<User>> {
-    let stmt = db.prepare(
+    let mut stmt = db.prepare(
         "SELECT id, name, encrypted_password FROM users WHERE id = ?1"
     )?;
 
-    let rows = stmt.query(params![user_id])?;
+    let mut rows = stmt.query(params![user_id])?;
 
     if let Some(row) = rows.next()? {
         Ok(Some(User {
             id: row.get(0)?,
             name: row.get(1)?,
             encrypted_password: row.get(2)?
-        }));
+        }))
     } else {
         Ok(None)
     }
@@ -40,7 +40,7 @@ pub fn update_user_password(db: &Connection, user_id: i64, new_password: &str) -
         params![new_password, user_id] 
     )?;
 
-    Ok(());
+    Ok(())
 }
 
 pub fn delete_user(db: &Connection, user_id: i64) -> Result<()> {
